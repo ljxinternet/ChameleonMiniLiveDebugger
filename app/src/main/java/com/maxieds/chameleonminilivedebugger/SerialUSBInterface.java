@@ -262,11 +262,11 @@ public class SerialUSBInterface implements ChameleonSerialIOInterface {
                 }
                 else if(ChameleonIO.WAITING_FOR_RESPONSE && ChameleonIO.isCommandResponse(liveLogData)) {
                     String[] strLogData = (new String(liveLogData)).split("[\n\r\t][\n\r\t]+");
-                    if(ChameleonIO.APPEND_PRIOR_BUFFER_DATA) {
-                        strLogData[0] = String.valueOf(ChameleonIO.PRIOR_BUFFER_DATA) + strLogData[0];
-                        ChameleonIO.PRIOR_BUFFER_DATA = new byte[0];
-                        ChameleonIO.APPEND_PRIOR_BUFFER_DATA = false;
-                    }
+                    //if(ChameleonIO.APPEND_PRIOR_BUFFER_DATA) {
+                    //    strLogData[0] = String.valueOf(ChameleonIO.PRIOR_BUFFER_DATA) + strLogData[0];
+                    //    ChameleonIO.PRIOR_BUFFER_DATA = new byte[0];
+                    //    ChameleonIO.APPEND_PRIOR_BUFFER_DATA = false;
+                    //}
                     ChameleonIO.DEVICE_RESPONSE_CODE =  strLogData[0];
                     int respCodeStartIndex = Utils.getFirstResponseCodeIndex(ChameleonIO.DEVICE_RESPONSE_CODE);
                     ChameleonIO.DEVICE_RESPONSE_CODE = ChameleonIO.DEVICE_RESPONSE_CODE.substring(respCodeStartIndex);
@@ -293,12 +293,12 @@ public class SerialUSBInterface implements ChameleonSerialIOInterface {
                     ChameleonIO.WAITING_FOR_RESPONSE = false;
                     return;
                 }
-                else if(appendNextBufferData) {
-                    ChameleonIO.APPEND_PRIOR_BUFFER_DATA = true;
-                    ChameleonIO.PRIOR_BUFFER_DATA = new byte[liveLogData.length];
-                    System.arraycopy(liveLogData, 0, ChameleonIO.PRIOR_BUFFER_DATA, 0, liveLogData.length);
-                    return;
-                }
+                //else if(appendNextBufferData) {
+                //    ChameleonIO.APPEND_PRIOR_BUFFER_DATA = true;
+                //    ChameleonIO.PRIOR_BUFFER_DATA = new byte[liveLogData.length];
+                //    System.arraycopy(liveLogData, 0, ChameleonIO.PRIOR_BUFFER_DATA, 0, liveLogData.length);
+                //    return;
+                //}
                 notifySerialDataReceived(liveLogData);
             }
         };
